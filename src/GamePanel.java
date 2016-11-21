@@ -39,7 +39,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			rocketImg = ImageIO.read(this.getClass().getResourceAsStream("rocket.png"));
 			bulletImg = ImageIO.read(this.getClass().getResourceAsStream("bullet.png"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -67,13 +66,17 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		manager.update();
 		manager.manageEnemies();
 		manager.checkCollision();
-		if (rocketship.isAlive == false) {
-			currentState = END_STATE;
-			manager.reset();
-			rocketship = new Rocketship(250, 700, 50, 50);
-			manager.addObject(rocketship);
+		if (rocketship.isAlive == false || Alien.endGame == true) {
+			endGame();
 		}
 		score = manager.getScore();
+	}
+	
+	void endGame() {
+		currentState = END_STATE;
+		manager.reset();
+		rocketship = new Rocketship(250, 700, 50, 50);
+		manager.addObject(rocketship);
 	}
 	
 	void updateEndState() {

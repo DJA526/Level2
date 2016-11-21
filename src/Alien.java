@@ -3,7 +3,8 @@ import java.awt.Graphics;
 
 public class Alien extends GameObject {
 	
-	int position = 0;
+	int counter;
+	static boolean endGame = false;
 	
 	Alien(int x, int y, int width, int height) {
 		super();
@@ -11,20 +12,23 @@ public class Alien extends GameObject {
 		this.y = y;
 		this.width = width;
 		this.height = height;
+		counter = 0;
 	}
 
 	void update() {
 		super.update();
-		if (position < 5) {
-			y++;
+		if (counter < 50) {
 			x++;
-			position++;
-		} else if (position > 5) {
-			y--;
+			y++;
+			counter++;
+		} else if (counter >= 50) {
 			x--;
-			position++;
-		} else if (position >= 10) {
-			
+			y++;
+			counter++;
+		} if (counter >= 100) {
+			counter = 0;
+		} if (y >= 800) {
+			endGame = true;
 		}
 	}
 	
