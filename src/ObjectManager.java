@@ -45,7 +45,7 @@ public class ObjectManager {
 
 	public void manageEnemies(){
 		if(System.currentTimeMillis() - enemyTimer >= enemySpawnTime){
-			addObject(new Alien(new Random().nextInt(LeagueInvaders.WIDTH), 0, 50, 50));
+			addObject(new Alien(new Random().nextInt(LeagueInvaders.WIDTH - 100), 0, 50, 50));
 			enemyTimer = System.currentTimeMillis();
 		}
 	}

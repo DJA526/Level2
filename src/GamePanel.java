@@ -22,6 +22,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	final int MENU_STATE = 0;
 	final int GAME_STATE = 1;
 	final int END_STATE = 2;
+	final int INSTRUCTIONS_STATE = 3;
 	int currentState = MENU_STATE;
 	int score;
 	public static BufferedImage alienImg;
@@ -54,6 +55,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			drawGameState(g);
 		} else if(currentState == END_STATE) {
 			drawEndState(g);
+		} else if (currentState == INSTRUCTIONS_STATE) {
+			drawInstructionsState(g);
 		}
 	}
 	
@@ -80,6 +83,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 	
 	void updateEndState() {
+		repaint();
+	}
+	
+	void updateInstructionsState() {
 		repaint();
 	}
 	
@@ -110,6 +117,18 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString("You killed " + score + " aliens.", 135, 300);
 		g.drawString("Press BACKSPACE to restart.", 80, 500);
 	}
+	
+	void drawInstructionsState(Graphics g) {
+		g.setColor(Color.blue);
+		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
+		g.setFont(subFont);
+		g.setColor(Color.white);
+		g.drawString("Use the arrow keys to move your rocketship.", 5, 200);
+		g.drawString("Use the space bar to shoot the aliens.", 25, 300);
+		g.drawString("If an alien gets past the bottom of the screen", 1, 400);
+		g.drawString("or touches your rocketship, the game ends.", 7, 425);
+		g.drawString("Press ENTER to start.", 105, 525);
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -119,19 +138,18 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			updateGameState();
 		} else if(currentState == END_STATE) {
 			updateEndState();
+		} else if (currentState == INSTRUCTIONS_STATE) {
+			updateInstructionsState();
 		}
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		System.out.println("hello!");		
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-			currentState++;
-		} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			rocketship.x -= rocketship.speed;
 		} else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			rocketship.x += rocketship.speed;
@@ -139,22 +157,28 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			rocketship.y -= rocketship.speed;
 		} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 			rocketship.y += rocketship.speed;
-		} else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+		} 
+		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			manager.addObject(new Projectile(rocketship.x + 20, rocketship.y, 10, 10));
 		}
-		if (currentState > END_STATE) {
-			currentState = MENU_STATE;
-			manager.setScore(0);
+		if (currentState == MENU_STATE) {
+			if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+				currentState = GAME_STATE;
+			} else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+				currentState = INSTRUCTIONS_STATE;
+			}
 		}
 		if (currentState == END_STATE && e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
 			currentState = GAME_STATE;
 			manager.setScore(0);
 		}
+		if (currentState == INSTRUCTIONS_STATE && e.getKeyCode() == KeyEvent.VK_ENTER) {
+			currentState = GAME_STATE;
+		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		System.out.println("hello!");
 	}
 
 }
