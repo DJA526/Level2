@@ -1,11 +1,11 @@
-package Breakout;
+package breakout;
 
 import javax.swing.JFrame;
 
 public class Breakout {
 	
 	JFrame window;
-	final static int WIDTH = 500;
+	final static int WIDTH = 1500;
 	final static int HEIGHT = 800;
 	GamePanel gamePanel;
 	
