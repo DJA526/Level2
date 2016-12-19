@@ -15,6 +15,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Timer timer;
 	Font titleFont;
 	Font subFont;
+	ObjectManager manager = new ObjectManager();
+	Paddle paddle;
 	final int MENU_STATE = 0;
 	final int GAME_STATE = 1;
 	final int END_STATE = 2;
@@ -25,6 +27,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		timer = new Timer(1000/60, this);
 		titleFont = new Font("Arial", Font.PLAIN, 48);
 		subFont = new Font("Arial", Font.PLAIN, 25);
+		paddle = new Paddle(750, 730, 125, 25);
+		manager.addObject(paddle);
 	}
 	
 	void startGame() {
@@ -49,6 +53,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	
 	void updateGameState() {
 		repaint();
+		manager.update();
 	}
 
 	void updateEndState() {
@@ -71,7 +76,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 	
 	void drawGameState(Graphics g) {
-
+		g.setColor(Color.black);
+		g.fillRect(0, 0, Breakout.WIDTH, Breakout.HEIGHT);
+		manager.draw(g);
 	}
 	
 	void drawEndState(Graphics g) {
@@ -79,7 +86,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 	
 	void drawInstructionsState(Graphics g) {
-		
+		g.setColor(Color.blue);
+		g.fillRect(0, 0, Breakout.WIDTH, Breakout.HEIGHT);
+		g.setColor(Color.white);
+		g.setFont(subFont);
+		g.drawString("Use the left and right arrow keys to move your paddle back and forth and hit the ball.", 250, 250);
+		g.drawString("Each time the ball goes past the bottom of the screen, you lose one of your 3 lives.", 257, 300);
+		g.drawString("If you lose all your lives, the game ends.", 490, 350);
+		g.drawString("If you break all the blocks at the top of the screen, you win the game!", 340, 400);
 	}
 	
 	@Override
@@ -96,6 +110,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			} else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 				currentState = INSTRUCTIONS_STATE;
 			}
+		}
+		
+		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+			paddle.moveLeft = true;
+		} else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+			paddle.moveRight = true;
+		} else {
+			paddle.moveLeft = false;
+			paddle.moveRight = false;
 		}
 	}
 

@@ -3,15 +3,14 @@ package breakout;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class Paddle {
+public class Paddle extends GameObject {
 	
-	int x;
-	int y;
-	int width;
-	int height;
 	int speed;
+	boolean moveLeft = false;
+	boolean moveRight = false;
 	
 	Paddle(int x, int y, int width, int height) {
+		super();
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -20,7 +19,12 @@ public class Paddle {
 	}
 	
 	void update() {
-				
+		super.update();
+		if (moveLeft) {
+			x -= speed;
+		} else if (moveRight) {
+			x += speed;
+		} 
 	}
 	
 	void draw(Graphics g) {

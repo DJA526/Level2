@@ -1,3 +1,4 @@
+package breakout;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -7,9 +8,6 @@ public class ObjectManager {
 	ArrayList<GameObject> objects;
 	
 	private int score = 0;
-	
-	long enemyTimer = 0;
-	int enemySpawnTime = 1000;
 	
 	public ObjectManager() {
 		objects = new ArrayList<GameObject>();
@@ -24,6 +22,7 @@ public class ObjectManager {
 			GameObject o = objects.get(i);
 			o.update();
 		}
+		
 		purgeObjects();	
 	}
 
@@ -42,14 +41,7 @@ public class ObjectManager {
 		}
 	}
 
-	public void manageEnemies(){
-		if(System.currentTimeMillis() - enemyTimer >= enemySpawnTime){
-			addObject(new Alien(new Random().nextInt(LeagueInvaders.WIDTH - 100), 0, 50, 50));
-			enemyTimer = System.currentTimeMillis();
-		}
-	}
-
-	public void checkCollision() {
+/*	public void checkCollision() {
 		for (int i = 0; i < objects.size(); i++) {
 			for (int j = i + 1; j < objects.size(); j++) {
 				GameObject o1 = objects.get(i);
@@ -72,7 +64,7 @@ public class ObjectManager {
 				}
 			}
 		}
-	}
+	} */
 	
 	public int getScore(){
 		return score;
