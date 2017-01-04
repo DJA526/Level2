@@ -3,17 +3,14 @@ package breakout;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class Paddle extends GameObject {
+public class Ball extends GameObject {
 	
-	int speed;
-
-	Paddle(int x, int y, int width, int height) {
+	Ball(int x, int y, int width, int height) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		speed = 20;
 	}
 	
 	void update() {
@@ -21,8 +18,8 @@ public class Paddle extends GameObject {
 	}
 	
 	void draw(Graphics g) {
-		g.setColor(Color.gray);
-		g.fillRect(x, y, width, height);
+		g.setColor(Color.yellow);
+		g.fillOval(x, y, width, height);
 	}
 
 }

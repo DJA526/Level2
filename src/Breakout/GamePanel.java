@@ -17,6 +17,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font subFont;
 	ObjectManager manager = new ObjectManager();
 	Paddle paddle;
+	Ball ball;
 	final int MENU_STATE = 0;
 	final int GAME_STATE = 1;
 	final int END_STATE = 2;
@@ -28,7 +29,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		titleFont = new Font("Arial", Font.PLAIN, 48);
 		subFont = new Font("Arial", Font.PLAIN, 25);
 		paddle = new Paddle(750, 730, 125, 25);
+		ball = new Ball(750, 400, 25, 25);
 		manager.addObject(paddle);
+		manager.addObject(ball);
+		manager.addBlocks();
 	}
 	
 	void startGame() {
@@ -113,13 +117,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 		
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-			paddle.moveLeft = true;
+			paddle.x -= paddle.speed;
 		} else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			paddle.moveRight = true;
-		} else {
-			paddle.moveLeft = false;
-			paddle.moveRight = false;
-		}
+			paddle.x += paddle.speed;
+		} 
 	}
 
 	@Override

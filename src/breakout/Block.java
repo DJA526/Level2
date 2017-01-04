@@ -3,26 +3,31 @@ package breakout;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class Paddle extends GameObject {
+public class Block extends GameObject {
 	
-	int speed;
-
-	Paddle(int x, int y, int width, int height) {
+	Color color;
+	
+	Block(int x, int y, int width, int height) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		speed = 20;
 	}
 	
 	void update() {
 		super.update();
 	}
 	
+	void setColor(Color c) {
+		color = c;
+	}
+	
 	void draw(Graphics g) {
-		g.setColor(Color.gray);
+		g.setColor(color);
 		g.fillRect(x, y, width, height);
+		g.setColor(Color.white);
+		g.drawRect(x, y, width, height);
 	}
 
 }

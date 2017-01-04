@@ -1,5 +1,6 @@
 package breakout;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Random;
@@ -40,31 +41,54 @@ public class ObjectManager {
 			}
 		}
 	}
+	
+	public void addBlocks() {
+		for (int i = 0; i < 300; i+= 25) {
+			for (int j = 0; j < Breakout.WIDTH; j+= 125) {
+				Block b = new Block(j, i, 125, 25);
+				if (i % 2 == 0) {
+					if (j%2 == 0) {
+						b.setColor(Color.blue);
+					} else {
+						b.setColor(Color.red);
+					}
+				} else {
+					if (j%2 == 0) {
+						b.setColor(Color.red);
+					} else {
+						b.setColor(Color.blue);
+					}
+				}
+				objects.add(b);
+			}
+		}
+	}
 
-/*	public void checkCollision() {
+	public void checkCollision() {
 		for (int i = 0; i < objects.size(); i++) {
 			for (int j = i + 1; j < objects.size(); j++) {
 				GameObject o1 = objects.get(i);
 				GameObject o2 = objects.get(j);
 				
-				if(o1.collisionBox.intersects(o2.collisionBox)){
-					if((o1 instanceof Alien && o2 instanceof Projectile) ||
-					   (o2 instanceof Alien && o1 instanceof Projectile)){
+				if (o1.collisionBox.intersects(o2.collisionBox)){
+					if ((o1 instanceof Block && o2 instanceof Ball)) {
 						score++;
 						System.out.println(score);
 						o1.isAlive = false;
+					} else if ((o2 instanceof Block && o1 instanceof Ball)) {
+						score++;
+						System.out.println(score);
 						o2.isAlive = false;
-					}
-					else if((o1 instanceof Alien && o2 instanceof Rocketship) ||
-							(o2 instanceof Alien && o1 instanceof Rocketship)){
-						o1.isAlive = false;
-						o2.isAlive = false;
+					} else if ((o1 instanceof Ball && o2 instanceof Paddle)){
+
+					} else if ((o2 instanceof Ball && o1 instanceof Paddle)) {
+
 					}
 	
 				}
 			}
 		}
-	} */
+	}
 	
 	public int getScore(){
 		return score;
