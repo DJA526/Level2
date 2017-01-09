@@ -75,14 +75,16 @@ public class ObjectManager {
 						score++;
 						System.out.println(score);
 						o1.isAlive = false;
+						o2.bounce = true;
 					} else if ((o2 instanceof Block && o1 instanceof Ball)) {
 						score++;
 						System.out.println(score);
 						o2.isAlive = false;
+						o1.bounce = true;
 					} else if ((o1 instanceof Ball && o2 instanceof Paddle)){
-
+						o1.bounce = true;
 					} else if ((o2 instanceof Ball && o1 instanceof Paddle)) {
-
+						o2.bounce = true;
 					}
 	
 				}

@@ -13,7 +13,7 @@ public class Paddle extends GameObject {
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		speed = 20;
+		speed = 25;
 	}
 	
 	void update() {
