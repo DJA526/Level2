@@ -4,8 +4,11 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Paddle extends GameObject {
-	
+
 	int speed;
+	boolean moveLeft = false;
+	boolean moveRight = false;
+	boolean isMoving = false;
 
 	Paddle(int x, int y, int width, int height) {
 		super();
@@ -13,13 +16,20 @@ public class Paddle extends GameObject {
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		speed = 25;
+		speed = 12;
 	}
-	
+
 	void update() {
 		super.update();
+		if (isMoving) {
+			if (moveLeft) {
+				x -= speed;
+			} else if (moveRight) {
+				x += speed;
+			}
+		}
 	}
-	
+
 	void draw(Graphics g) {
 		g.setColor(Color.gray);
 		g.fillRect(x, y, width, height);
