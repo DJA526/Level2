@@ -5,8 +5,8 @@ import java.awt.Graphics;
 
 public class Ball extends GameObject {
 
-	int xspeed = 2;
-	int yspeed = -2;
+	int xspeed = 1;
+	int yspeed = -1;
 
 	Ball(int x, int y, int width, int height) {
 		super();
@@ -17,7 +17,6 @@ public class Ball extends GameObject {
 	}
 
 	void update() {
-		super.update();
 		x += xspeed;
 		y += yspeed;
 		if (blockBounce) {
@@ -25,8 +24,8 @@ public class Ball extends GameObject {
 			blockBounce = false;
 		}
 		if (paddleBounce) {
+			y -= 7;
 			yspeed = -yspeed;
-			y -= 25;
 			paddleBounce = false;
 		}
 		if (x + width > Breakout.WIDTH || x < 0) {
@@ -35,7 +34,7 @@ public class Ball extends GameObject {
 		if (y - height < 0) {
 			yspeed = -yspeed;
 		}
-
+		super.update();
 	}
 
 	void draw(Graphics g) {

@@ -20,7 +20,6 @@ public class Paddle extends GameObject {
 	}
 
 	void update() {
-		super.update();
 		if (isMoving) {
 			if (moveLeft) {
 				x -= speed;
@@ -28,6 +27,7 @@ public class Paddle extends GameObject {
 				x += speed;
 			}
 		}
+		super.update();
 	}
 
 	void draw(Graphics g) {

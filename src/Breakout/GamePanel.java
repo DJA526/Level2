@@ -26,14 +26,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	int currentState = MENU_STATE;
 
 	GamePanel() {
-		timer = new Timer(1000 / 60, this);
+		timer = new Timer(1000/60, this);
 		titleFont = new Font("Arial", Font.PLAIN, 48);
 		subFont = new Font("Arial", Font.PLAIN, 25);
 		paddle = new Paddle(750, 730, 125, 25);
-		ball = new Ball(740, 400, 25, 25);
+		ball = new Ball(750, 400, 25, 25);
 		manager.addObject(paddle);
 		manager.addObject(ball);
 		manager.addBlocks();
+		manager.setScore(0);
 	}
 
 	void startGame() {
@@ -88,7 +89,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void drawEndState(Graphics g) {
-
+		g.setColor(Color.red);
+		g.fillRect(0, 0, Breakout.WIDTH, Breakout.HEIGHT);
+		g.setFont(titleFont);
+		g.setColor(Color.black);
+		g.drawString("GAME OVER", 560, 250);
+		g.setFont(subFont);
+		g.drawString("Your score: " + manager.getScore(), 630, 350);
+		g.drawString("Press ENTER to play again.", 560, 450);
 	}
 
 	void drawInstructionsState(Graphics g) {
@@ -100,7 +108,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				250);
 		g.drawString("Each time the ball goes past the bottom of the screen, you lose one of your 3 lives.", 257, 300);
 		g.drawString("If you lose all your lives, the game ends.", 490, 350);
-		g.drawString("If you break all the blocks at the top of the screen, you win the game!", 340, 400);
+		g.drawString("If you break all the blocks at the top of the screen, you win the game.", 340, 400);
+		g.drawString("Press ENTER to begin playing!", 530, 450);
 	}
 
 	@Override
@@ -117,6 +126,20 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			} else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 				currentState = INSTRUCTIONS_STATE;
 			}
+		}
+		
+		if (currentState == INSTRUCTIONS_STATE && e.getKeyCode() == KeyEvent.VK_ENTER) {
+			currentState = GAME_STATE;
+		}
+		
+		if (currentState == GAME_STATE && e.getKeyCode() == KeyEvent.VK_SPACE) {
+			currentState = END_STATE;
+		}
+		
+		if (currentState == END_STATE && e.getKeyCode() == KeyEvent.VK_ENTER) {
+			currentState = GAME_STATE;
+			manager.setScore(0);
+			manager.reset();
 		}
 
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {

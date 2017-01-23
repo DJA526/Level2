@@ -66,26 +66,52 @@ public class ObjectManager {
 	public void checkCollision() {
 		for (int i = 0; i < objects.size(); i++) {
 			for (int j = i + 1; j < objects.size(); j++) {
-				GameObject o1 = objects.get(i);
-				GameObject o2 = objects.get(j);
-
-				if (o1.collisionBox.intersects(o2.collisionBox)) {
-					if ((o1 instanceof Block && o2 instanceof Ball)) {
-						score++;
-						System.out.println(score);
-						o1.isAlive = false;
-						o2.blockBounce = true;
-					} else if ((o2 instanceof Block && o1 instanceof Ball)) {
-						score++;
-						System.out.println(score);
-						o2.isAlive = false;
-						o1.blockBounce = true;
-					} else if ((o1 instanceof Ball && o2 instanceof Paddle)) {
-						o1.paddleBounce = true;
-					} else if ((o2 instanceof Ball && o1 instanceof Paddle)) {
-						o2.paddleBounce = true;
+				for (int k = j + 1; k < objects.size(); k ++) {
+					GameObject o1 = objects.get(i);
+					GameObject o2 = objects.get(j);
+					GameObject o3 = objects.get(k);
+					
+					if (o1.collisionBox.intersects(o2.collisionBox) && o1.collisionBox.intersects(o3.collisionBox)) {
+						if ((o1 instanceof Ball && o2 instanceof Block && o3 instanceof Block)) {
+							System.out.println(score);
+							o1.blockBounce = true;
+							o2.isAlive = false;
+							o3.isAlive = false;
+							score++;
+						}
+					} else if (o2.collisionBox.intersects(o1.collisionBox) && o2.collisionBox.intersects(o3.collisionBox)) {
+						if ((o2 instanceof Ball && o1 instanceof Block && o3 instanceof Block)) {
+							System.out.println(score);
+							o2.blockBounce = true;
+							o1.isAlive = false;
+							o3.isAlive = false;
+							score++;
+						}
+					} else if (o3.collisionBox.intersects(o1.collisionBox) && o3.collisionBox.intersects(o2.collisionBox)) {
+						if ((o3 instanceof Ball && o1 instanceof Block && o2 instanceof Block)) {
+							System.out.println(score);
+							o3.blockBounce = true;
+							o2.isAlive = false;
+							o1.isAlive = false;
+							score++;
+						}
+					} else if (o1.collisionBox.intersects(o2.collisionBox)) {
+						if ((o1 instanceof Block && o2 instanceof Ball)) {
+							System.out.println(score);
+							o1.isAlive = false;
+							o2.blockBounce = true;
+							score++;
+						} else if ((o2 instanceof Block && o1 instanceof Ball)) {
+							System.out.println(score);
+							o2.isAlive = false;
+							o1.blockBounce = true;
+							score++;
+						} else if ((o1 instanceof Ball && o2 instanceof Paddle)) {
+							o1.paddleBounce = true;
+						} else if ((o2 instanceof Ball && o1 instanceof Paddle)) {
+							o2.paddleBounce = true;
+						}
 					}
-
 				}
 			}
 		}
@@ -101,5 +127,7 @@ public class ObjectManager {
 
 	public void reset() {
 		objects.clear();
+		addBlocks();
+		addObject(new Ball(750, 400, 25, 25));
 	}
 }
