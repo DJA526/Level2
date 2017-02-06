@@ -1,4 +1,4 @@
-package breakout;
+package Breakout;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -34,7 +34,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		manager.addObject(paddle);
 		manager.addObject(ball);
 		manager.addBlocks();
-		manager.setScore(0);
 	}
 
 	void startGame() {
@@ -61,6 +60,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		repaint();
 		manager.update();
 		manager.checkCollision();
+		if (manager.gameOver == true) {
+			currentState = END_STATE;
+		}
 	}
 
 	void updateEndState() {
@@ -93,10 +95,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.fillRect(0, 0, Breakout.WIDTH, Breakout.HEIGHT);
 		g.setFont(titleFont);
 		g.setColor(Color.black);
-		g.drawString("GAME OVER", 560, 250);
+		if (manager.win == true) {
+			g.drawString("YOU LOSE", 560, 250);
+		} else {
+			g.drawString("GAME OVER", 560, 250);
+		}
 		g.setFont(subFont);
-		g.drawString("Your score: " + manager.getScore(), 630, 350);
-		g.drawString("Press ENTER to play again.", 560, 450);
+		g.drawString("Press ENTER to play again.", 560, 350);
 	}
 
 	void drawInstructionsState(Graphics g) {
@@ -132,14 +137,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			currentState = GAME_STATE;
 		}
 		
-		if (currentState == GAME_STATE && e.getKeyCode() == KeyEvent.VK_SPACE) {
-			currentState = END_STATE;
-		}
-		
 		if (currentState == END_STATE && e.getKeyCode() == KeyEvent.VK_ENTER) {
 			currentState = GAME_STATE;
-			manager.setScore(0);
 			manager.reset();
+			paddle.setPosition(750, 730);
 		}
 
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {

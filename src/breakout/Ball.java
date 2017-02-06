@@ -1,12 +1,13 @@
-package breakout;
+package Breakout;
 
 import java.awt.Color;
 import java.awt.Graphics;
 
 public class Ball extends GameObject {
 
-	int xspeed = 1;
-	int yspeed = -1;
+	int xspeed = 3;
+	int yspeed = -3;
+	int direction = 1;
 
 	Ball(int x, int y, int width, int height) {
 		super();
@@ -20,7 +21,8 @@ public class Ball extends GameObject {
 		x += xspeed;
 		y += yspeed;
 		if (blockBounce) {
-			yspeed = -yspeed;
+			yspeed = 3;
+			System.out.println("hi");
 			blockBounce = false;
 		}
 		if (paddleBounce) {

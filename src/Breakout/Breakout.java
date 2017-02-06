@@ -1,4 +1,4 @@
-package breakout;
+package Breakout;
 
 import javax.swing.JFrame;
 

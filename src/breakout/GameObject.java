@@ -1,4 +1,4 @@
-package breakout;
+package Breakout;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -12,6 +12,7 @@ public class GameObject {
 	boolean isAlive = true;
 	boolean blockBounce = false;
 	boolean paddleBounce = false;
+	boolean loseLife = false;
 	Rectangle collisionBox;
 
 	GameObject() {

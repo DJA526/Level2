@@ -1,4 +1,4 @@
-package breakout;
+package Breakout;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -27,7 +27,15 @@ public class Paddle extends GameObject {
 				x += speed;
 			}
 		}
+		if (y > Breakout.HEIGHT) {
+			loseLife = true;
+		}
 		super.update();
+	}
+	
+	void setPosition(int x, int y) {
+		this.x = x;
+		this.y = y;
 	}
 
 	void draw(Graphics g) {
