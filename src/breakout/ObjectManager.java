@@ -25,12 +25,11 @@ public class ObjectManager {
 			if (o.loseLife == true) {
 				lives--;
 				o.loseLife = false;
-				System.out.println(lives);
 			}
 		}
 
 		purgeObjects();
-		
+
 		if (objects.size() == 2) {
 			gameOver = true;
 			win = true;
@@ -82,12 +81,12 @@ public class ObjectManager {
 			for (int j = i + 1; j < objects.size(); j++) {
 				GameObject o1 = objects.get(i);
 				GameObject o2 = objects.get(j);
-				
+
 				if (o1.collisionBox.intersects(o2.collisionBox)) {
 					if ((o1 instanceof Block && o2 instanceof Ball)) {
 						o1.isAlive = false;
 						o2.blockBounce = true;
-							
+
 					} else if ((o2 instanceof Block && o1 instanceof Ball)) {
 						o2.isAlive = false;
 						o1.blockBounce = true;
@@ -110,5 +109,7 @@ public class ObjectManager {
 		}
 		addBlocks();
 		addObject(new Ball(750, 400, 25, 25));
+		lives = 3;
+		gameOver = false;
 	}
 }

@@ -26,7 +26,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	int currentState = MENU_STATE;
 
 	GamePanel() {
-		timer = new Timer(1000/60, this);
+		timer = new Timer(1000 / 60, this);
 		titleFont = new Font("Arial", Font.PLAIN, 48);
 		subFont = new Font("Arial", Font.PLAIN, 25);
 		paddle = new Paddle(750, 730, 125, 25);
@@ -87,7 +87,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	void drawGameState(Graphics g) {
 		g.setColor(Color.black);
 		g.fillRect(0, 0, Breakout.WIDTH, Breakout.HEIGHT);
+		g.setFont(subFont);
 		manager.draw(g);
+		g.setColor(Color.white);
+		String lives = "Lives: " + manager.lives;
+		g.drawString(lives, 20, 760);
 	}
 
 	void drawEndState(Graphics g) {
@@ -96,12 +100,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setFont(titleFont);
 		g.setColor(Color.black);
 		if (manager.win == true) {
-			g.drawString("YOU LOSE", 560, 250);
+			g.drawString("YOU WIN!", 620, 250);
 		} else {
-			g.drawString("GAME OVER", 560, 250);
+			g.drawString("YOU LOSE", 620, 250);
 		}
 		g.setFont(subFont);
-		g.drawString("Press ENTER to play again.", 560, 350);
+		g.drawString("Press ENTER to play again.", 590, 350);
 	}
 
 	void drawInstructionsState(Graphics g) {
@@ -132,15 +136,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				currentState = INSTRUCTIONS_STATE;
 			}
 		}
-		
+
 		if (currentState == INSTRUCTIONS_STATE && e.getKeyCode() == KeyEvent.VK_ENTER) {
 			currentState = GAME_STATE;
 		}
-		
+
 		if (currentState == END_STATE && e.getKeyCode() == KeyEvent.VK_ENTER) {
-			currentState = GAME_STATE;
 			manager.reset();
 			paddle.setPosition(750, 730);
+			currentState = GAME_STATE;
 		}
 
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {

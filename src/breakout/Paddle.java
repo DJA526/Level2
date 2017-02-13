@@ -27,12 +27,9 @@ public class Paddle extends GameObject {
 				x += speed;
 			}
 		}
-		if (y > Breakout.HEIGHT) {
-			loseLife = true;
-		}
 		super.update();
 	}
-	
+
 	void setPosition(int x, int y) {
 		this.x = x;
 		this.y = y;

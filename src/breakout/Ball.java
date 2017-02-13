@@ -5,9 +5,10 @@ import java.awt.Graphics;
 
 public class Ball extends GameObject {
 
-	int xspeed = 3;
-	int yspeed = -3;
+	int xspeed = 6;
+	int yspeed = -6;
 	int direction = 1;
+	final int PADDLE_Y = 705;
 
 	Ball(int x, int y, int width, int height) {
 		super();
@@ -21,8 +22,7 @@ public class Ball extends GameObject {
 		x += xspeed;
 		y += yspeed;
 		if (blockBounce) {
-			yspeed = 3;
-			System.out.println("hi");
+			yspeed = 6;
 			blockBounce = false;
 		}
 		if (paddleBounce) {
@@ -35,6 +35,11 @@ public class Ball extends GameObject {
 		}
 		if (y - height < 0) {
 			yspeed = -yspeed;
+		}
+		if (y > Breakout.HEIGHT) {
+			x = 750;
+			y = 400;
+			loseLife = true;
 		}
 		super.update();
 	}
