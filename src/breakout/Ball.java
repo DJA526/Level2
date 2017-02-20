@@ -8,7 +8,6 @@ public class Ball extends GameObject {
 	int xspeed = 6;
 	int yspeed = -6;
 	int direction = 1;
-	final int PADDLE_Y = 705;
 
 	Ball(int x, int y, int width, int height) {
 		super();
@@ -22,18 +21,22 @@ public class Ball extends GameObject {
 		x += xspeed;
 		y += yspeed;
 		if (blockBounce) {
-			yspeed = 6;
+			if (yspeed == -6) {
+				yspeed = 6;
+			} else {
+				yspeed = -6;
+			}
 			blockBounce = false;
 		}
 		if (paddleBounce) {
-			y -= 7;
+			y -= 12;
 			yspeed = -yspeed;
 			paddleBounce = false;
 		}
 		if (x + width > Breakout.WIDTH || x < 0) {
 			xspeed = -xspeed;
 		}
-		if (y - height < 0) {
+		if (y < 0) {
 			yspeed = -yspeed;
 		}
 		if (y > Breakout.HEIGHT) {

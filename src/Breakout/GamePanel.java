@@ -29,7 +29,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		timer = new Timer(1000 / 60, this);
 		titleFont = new Font("Arial", Font.PLAIN, 48);
 		subFont = new Font("Arial", Font.PLAIN, 25);
-		paddle = new Paddle(750, 730, 125, 25);
+		paddle = new Paddle(750, 730, 110, 25);
 		ball = new Ball(750, 400, 25, 25);
 		manager.addObject(paddle);
 		manager.addObject(ball);
